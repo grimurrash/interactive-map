@@ -16,20 +16,29 @@ class MuseumController extends Controller
     {
         $typeIdsString = $request->input('museumTypeIds');
         $districtId = $request->input('districtId');
-        $district = District::query()->find($districtId);
-        $museums = $district->museums;
         if (!empty($typeIdsString)) {
             $typeIds = explode(',', $typeIdsString);
-            $museums = $museums->whereIn('typeId', $typeIds);
+            $museums = Museum::query()
+                ->where('districtId', '=', $districtId)
+                ->whereIn('typeId', $typeIds)
+                ->select('id','name','typeId','districtId','Latitude', 'Longitude')
+                ->get();
+        } else {
+            $museums = Museum::query()
+                ->where('districtId', '=', $districtId)
+                ->select('id','name','typeId','districtId','Latitude', 'Longitude')
+                ->get();
         }
-
+        $polygons = Polygon::query()->where('districtId','=',$districtId)
+            ->select('id')->get();
+        $polygonIds = $polygons->map(function ($polygon) {
+            return $polygon->id;
+        });
         return response()->json([
             'district' => [
                 'id' => $districtId,
-                'points' => MuseumsResource::collection($museums),
-                'polygons' => $district->polygons->map(function ($polygon) {
-                    return $polygon->id;
-                })
+                'points' => $museums,
+                'polygons' => $polygonIds
             ],
         ])->setStatusCode(200);
     }
@@ -50,13 +59,19 @@ class MuseumController extends Controller
 
         if (empty($typeIdsString)) {
             $museums = Museum::query()
-                ->where('name', 'LIKE', "%$search%")
+                ->orWhere('name', 'LIKE', "%$search%")
+                ->orWhere('location','LIKE',"%$search")
+                ->orWhere('description','LIKE',"%$search")
+                ->orWhere('directorFio','LIKE',"%$search")
                 ->select('id', 'name', 'typeId', 'districtId', 'Latitude', 'Longitude')
                 ->get();
         } else {
             $typeIds = explode(',', $typeIdsString);
             $museums = Museum::query()
-                ->where('name', 'LIKE', "%$search%")
+                ->orWhere('name', 'LIKE', "%$search%")
+                ->orWhere('location','LIKE',"%$search")
+                ->orWhere('description','LIKE',"%$search")
+                ->orWhere('directorFio','LIKE',"%$search")
                 ->whereIn('typeId', $typeIds)
                 ->select('id', 'name', 'typeId', 'districtId', 'Latitude', 'Longitude')
                 ->get();

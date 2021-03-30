@@ -39,36 +39,21 @@ export default {
                 '</ul>',
             ].join(''));
 
-            document.addEventListener('click', function (event) {
-                event.preventDefault()
-                var selectors = document.querySelectorAll('ul.clusterize_list li>a.list_item'),
-                    element = event.target,
-                    index = -1;
-
-                if (selectors) {
-
-                    while (element && ((index = Array.prototype.indexOf.call(selectors, element)) === -1)) {
-                        element = element.parentElement;
-                    }
-
-                    if (index > -1) {
-                        (function () {
-                            const id = element.getAttribute('data-objectId')
-                            const ob = pointsObjectManager.objects.getById(id)
-                            if (ob.internal) {
-                                return
-                            }
-                            if (typeof ob.main === 'boolean') {
-                                if (ob.main) {
-                                    bus.$emit('toDistrict', ob.id)
-                                } else {
-                                    bus.$emit('toMuseum', ob.id)
-                                }
-                            }
-                        }).call(element, event);
+            $(document).on('click','ul.clusterize_list li>a.list_item', function (e) {
+                e.preventDefault()
+                const id = $(this)[0].getAttribute('data-objectId')
+                const ob = pointsObjectManager.objects.getById(id)
+                if (ob.internal) {
+                    return
+                }
+                if (typeof ob.main === 'boolean') {
+                    if (ob.main) {
+                        bus.$emit('toDistrict', ob.id)
+                    } else {
+                        bus.$emit('toMuseum', ob.id)
                     }
                 }
-            });
+            })
 
             pointsObjectManager = new ymaps.ObjectManager({
                 // Чтобы метки начали кластеризоваться, выставляем опцию.

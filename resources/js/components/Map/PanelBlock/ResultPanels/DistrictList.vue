@@ -1,6 +1,6 @@
 <template>
     <div class="content district-list">
-        <h2>Районы</h2>
+        <h2>Округи</h2>
         <div class="wrapper">
             <ul>
                 <li
