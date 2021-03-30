@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="7" height="11"
+     viewBox="0 0 7 11">
+    <defs>
+        <path id="fpp8a" d="M31.5 31.5l-5 5 5 5"/>
+    </defs>
+    <g>
+        <g transform="translate(-25 -31)">
+            <use fill="#fff" fill-opacity="0" stroke="#404040" stroke-miterlimit="50" xlink:href="#fpp8a"/>
+        </g>
+    </g>
+</svg>

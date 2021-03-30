@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21" height="18"
+     viewBox="0 0 21 18">
+    <defs>
+        <path id="18rfa"
+              d="M117 37c0-3.87 3.25-7 7.26-7a7.14 7.14 0 0 1 7.27 7c0 3.87-3.25 7-7.26 7a7.14 7.14 0 0 1-7.27-7z"/>
+        <path id="18rfb" d="M130.88 41.5l4.65 5"/>
+    </defs>
+    <g>
+        <g transform="translate(-116 -29)">
+            <g>
+                <use fill="#fff" fill-opacity="0" stroke="#404040" stroke-miterlimit="50" xlink:href="#18rfa"/>
+            </g>
+            <g>
+                <use fill="#fff" fill-opacity="0" stroke="#404040" stroke-linecap="square" stroke-miterlimit="50"
+                     xlink:href="#18rfb"/>
+            </g>
+        </g>
+    </g>
+</svg>

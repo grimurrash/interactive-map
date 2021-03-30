@@ -1,0 +1,48 @@
+@function pow($number, $exponent) {
+    $value: 1;
+
+    @if $exponent > 0 {
+        @for $i from 1 through $exponent {
+            $value: $value * $number;
+        }
+    } @else if $exponent < 0 {
+        @for $i from 1 through -$exponent {
+            $value: $value / $number;
+        }
+    }
+
+    @return $value;
+}
+
+@function ms($count) {
+    $result: pow(1.618, $count);
+    @return $result * 1em;
+}
+
+@mixin breakpoint($size) {
+    @if ($size == 'medium') {
+        @media screen and (max-width: 63.99875em) {
+            @content()
+        }
+    }
+    @if ($size == 'small') {
+        @media screen and (max-width: 39.99875em) {
+            @content()
+        }
+    }
+}
+
+@mixin left-panel {
+    background-color: hsla(0,0%,100%,.95);
+    border: 1px solid transparent;
+    border-radius: .14591em;
+    box-shadow: 5px 5px 30px rgba(218,220,232,.4);
+    min-height: 20px;
+    padding: .61805em;
+}
+
+@mixin left-panel-active {
+    background-color: hsla(0,0%,100%,.95);
+    background-color: #053951;
+    color: #fff;
+}

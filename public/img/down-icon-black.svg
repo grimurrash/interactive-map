@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10" height="10"
+     viewBox="0 0 10 5">
+  <defs>
+    <path id="v069a" d="M70 34l5 5 5-5"/>
+  </defs>
+  <g>
+    <g transform="translate(-70 -34)">
+      <use fill="#fff" fill-opacity="0" stroke="#404040" stroke-miterlimit="50" xlink:href="#v069a"/>
+    </g>
+  </g>
+</svg>
