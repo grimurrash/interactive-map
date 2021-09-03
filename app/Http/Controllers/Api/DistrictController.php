@@ -11,19 +11,19 @@ class DistrictController extends Controller
 {
     public function index(Request $request)
     {
-        $typeIdsString = $request->input('museumTypeIds');
+        $typeIdsString = $request->input('subjectTypeIds');
         if (empty($typeIdsString)) {
             $districts = District::query()
-                ->join('museums', 'districts.id', '=', 'museums.districtId')
-                ->selectRaw('districts.id, districts.shortName, count(museums.id) as museumsCount, districts.Latitude, districts.Longitude')
+                ->join('subjects', 'districts.id', '=', 'subjects.districtId')
+                ->selectRaw('districts.id, districts.shortName, count(subjects.id) as subjectsCount, districts.Latitude, districts.Longitude')
                 ->groupBy('districts.id')
                 ->get();
         } else {
             $typeIds = explode(',', $typeIdsString);
             $districts = District::query()
-                ->join('museums', 'districts.id', '=', 'museums.districtId')
-                ->whereIn('museums.typeId', $typeIds)
-                ->selectRaw('districts.id, districts.shortName, count(museums.id) as museumsCount, districts.Latitude, districts.Longitude')
+                ->join('subjects', 'districts.id', '=', 'subjects.districtId')
+                ->whereIn('subjects.typeId', $typeIds)
+                ->selectRaw('districts.id, districts.shortName, count(subjects.id) as subjectsCount, districts.Latitude, districts.Longitude')
                 ->groupBy('districts.id')
                 ->get();
         }

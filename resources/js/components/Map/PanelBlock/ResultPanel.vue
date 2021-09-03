@@ -1,16 +1,16 @@
 <template>
   <section class="result-panel">
     <district-list v-if="settings.stage === stages.city"/>
-    <museum-list v-if="settings.stage === stages.district"/>
-    <museum v-if="settings.stage === stages.museum"/>
+    <subject-list v-if="settings.stage === stages.district"/>
+    <subject v-if="settings.stage === stages.subject"/>
     <search v-if="settings.stage === stages.search"/>
   </section>
 </template>
 
 <script>
 import DistrictList from "./ResultPanels/DistrictList";
-import MuseumList from "./ResultPanels/MuseumList";
-import Museum from "./ResultPanels/Museum";
+import SubjectList from "./ResultPanels/SubjectList";
+import Subject from "./ResultPanels/Subject";
 import Search from "./ResultPanels/Search";
 
 import stages from "~/consts/stages";
@@ -28,7 +28,7 @@ export default {
     showPanel: Boolean
   },
   components: {
-    DistrictList, Museum, MuseumList, Search
+    DistrictList, Subject, SubjectList, Search
   },
   computed: {
     ...mapGetters(['settings'])

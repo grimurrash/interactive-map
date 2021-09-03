@@ -11,7 +11,7 @@
 
         v-on:click="toggleFilter(type.id)"
     >
-      Музеи {{ type.name }}
+      Объекты {{ type.name }}
     </button>
   </section>
 </template>
@@ -71,11 +71,11 @@ export default {
         query: query
       })
     })
-    bus.$on('toMuseum', (eoId) => {
+    bus.$on('toSubject', (eoId) => {
       const query = JSON.parse(JSON.stringify(
           this.$route.query
       ))
-      query.museum = eoId
+      query.subject = eoId
       this.$store.commit('setSettings', {
         name: 'showFilters',
         value: false
@@ -88,7 +88,7 @@ export default {
     })
   },
   beforeDestroy() {
-    bus.$off('toMuseum')
+    bus.$off('toSubject')
     bus.$off('toDistrict')
   }
 }

@@ -1,7 +1,7 @@
 const stages = {
     city: 'CITY',
     district: 'DISTRICT',
-    museum: 'MUSEUM',
+    subject: 'SUBJECT',
     search: 'SEARCH'
 }
 export default stages

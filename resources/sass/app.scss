@@ -384,7 +384,7 @@ body {
     @include left-panel;
 
     overflow-y: auto;
-    max-height: calc(100vh - 10em);
+    max-height: calc(100vh - 14em);
 }
 
 .content {
@@ -457,7 +457,7 @@ body {
         }
     }
 
-    &.search, &.museum-list {
+    &.search, &.museum-list, &.subject-list {
         margin: -#{ms(-1)};
         h2 {
             margin: ms(-1) ms(-1) 0;
@@ -493,7 +493,7 @@ body {
 
     }
 
-    &.museum {
+    &.museum, &.subject {
         ul {
             li {
                 cursor: default;

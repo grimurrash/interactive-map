@@ -2,7 +2,7 @@
   <div class="panel">
     <action-panel/>
     <template v-if="settings.showFilters">
-        <filter-panel/>
+<!--        <filter-panel/>-->
     </template>
     <template v-else>
       <transition name="slide-fade">
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import FilterPanel from "./PanelBlock/FilterPanel";
+// import FilterPanel from "./PanelBlock/FilterPanel";
 import ResultPanel from "./PanelBlock/ResultPanel";
 import ActionPanel from "./PanelBlock/ActionPanel";
 
@@ -21,7 +21,11 @@ import {mapState} from 'vuex'
 
 export default {
   name: "PanelBlock",
-  components: {ActionPanel, FilterPanel, ResultPanel},
+  components: {
+    ActionPanel,
+    // FilterPanel,
+    ResultPanel
+  },
   computed: {
     ...mapState(['settings'])
   }

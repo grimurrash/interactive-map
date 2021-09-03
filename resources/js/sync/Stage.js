@@ -3,8 +3,8 @@ import stages from "~/consts/stages"
 const getStage = function () {
     const routeKeys = Object.keys(this.$route.query)
 
-    if (routeKeys.indexOf('museum') > -1) {
-        return stages.museum
+    if (routeKeys.indexOf('subject') > -1) {
+        return stages.subject
     }
 
     if (routeKeys.indexOf('search') > -1) {

@@ -4,10 +4,10 @@
     <div class="wrapper">
       <ul>
         <li
-            v-for="(museum) in searchList"
-            v-on:click="toMuseum(museum.id)"
+            v-for="(subject) in searchList"
+            v-on:click="toSubject(subject.id)"
         >
-          {{ museum.name }}
+          {{ subject.name }}
         </li>
       </ul>
     </div>
@@ -27,16 +27,16 @@ export default {
     ...mapGetters(['searchList'])
   },
   methods: {
-    toMuseum(eoId) {
-      bus.$emit('toMuseum', eoId)
+    toSubject(eoId) {
+      bus.$emit('toSubject', eoId)
     }
   },
   mounted() {
-    bus.$on('toMuseum', (eoId) => {
+    bus.$on('toSubject', (eoId) => {
       const query = JSON.parse(JSON.stringify(
           this.$route.query
       ))
-      query.museum = eoId
+      query.subject = eoId
       this.$router.push({
         name: this.$route.name,
         params: this.$route.params,
@@ -45,7 +45,7 @@ export default {
     })
   },
   beforeDestroy() {
-    bus.$off('toMuseum')
+    bus.$off('toSubject')
   }
 }
 </script>

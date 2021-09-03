@@ -16,7 +16,7 @@ export default {
                 filters = ctx.rootState.filters.list.join(',')
             }
             api.mapAPI.getSearch({
-                museumTypeIds: filters,
+                subjectTypeIds: filters,
                 search: ctx.rootState.settings.search
             }).then((result) => {
                 ctx.commit('setSearch',result.data.search)

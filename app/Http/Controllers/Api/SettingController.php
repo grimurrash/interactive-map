@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\MuseumType;
+use App\Models\SubjectType;
 use App\Models\Polygon;
 
 class SettingController extends Controller
 {
     public function index() {
         $polygons = Polygon::all();
-        $museumsTypes = MuseumType::all();
+        $subjectTypes = SubjectType::all();
 
         return response()->json([
             'polygons' => $polygons,
-            'museumsTypes' =>$museumsTypes
+            'subjectTypes' => $subjectTypes
         ])->setStatusCode(200);
     }
 }

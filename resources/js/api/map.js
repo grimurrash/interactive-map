@@ -7,13 +7,13 @@ export default function (instance) {
             return instance.get('districts', {params: payload})
         },
         getCurrentRegion(payload) {
-            return instance.get('museums', {params: payload})
+            return instance.get('subjects', {params: payload})
         },
-        getMuseum(payload) {
-            return instance.get('museums/show', {params: payload})
+        getSubject(payload) {
+            return instance.get('subjects/show', {params: payload})
         },
         getSearch(payload) {
-            return instance.get('museums/search', {params: payload})
+            return instance.get('subjects/search', {params: payload})
         }
     }
 }

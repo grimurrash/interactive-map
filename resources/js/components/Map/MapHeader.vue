@@ -9,8 +9,8 @@
       </p>
     </a>
     <h2 class="map-header__title">
-      <span>Школьные</span>
-      <span>музеи</span>
+      <span>Волонтеры</span>
+      <span>Москвы</span>
     </h2>
   </header>
 </template>

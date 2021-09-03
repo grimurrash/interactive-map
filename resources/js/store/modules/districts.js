@@ -5,7 +5,7 @@ export default {
         loadSettings(ctx) {
             api.mapAPI.getSettings().then((result)=> {
                 ctx.commit('setPolygons', result.data.polygons)
-                ctx.commit('setFilterList', result.data.museumsTypes)
+                ctx.commit('setFilterList', result.data.subjectTypes)
             })
         },
         getCityPoints(ctx) {
@@ -18,7 +18,7 @@ export default {
                 filters = ctx.rootState.filters.list.join(',')
             }
             api.mapAPI.getCityPoints({
-                museumTypeIds: filters
+                subjectTypeIds: filters
             }).then((result) => {
                 ctx.commit('setDistrict',result.data.districts)
                 ctx.commit('setPoints', result.data.points)
@@ -38,7 +38,7 @@ export default {
                 filters = ctx.rootState.filters.list.join(',')
             }
             api.mapAPI.getCurrentRegion({
-                museumTypeIds: filters,
+                subjectTypeIds: filters,
                 districtId: eoId
             }).then((result) => {
                 ctx.commit('setCurrentDistrict',result.data.district)
@@ -86,7 +86,7 @@ export default {
         currentDistrict: (state) => {
             return state.current
         },
-        museumList: (state) => {
+        subjectList: (state) => {
             return state.current.points
         }
     }

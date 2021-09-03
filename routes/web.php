@@ -3,40 +3,34 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Admin\MuseumController;
+use App\Http\Controllers\Admin\SubjectController;
 
 
 Route::middleware('guest')->group(function () {
     Route::post('/login', [LoginController::class, 'login']);
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-//    Route::get('/register', [RegisterController::class, 'showRegistrationForm']);
     Route::post('/register', [RegisterController::class, 'register']);
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/adminPanel', function () {
-        return redirect()->route('admin.museums.index');
-    });
+        return redirect()->route('admin.subjects.index');
+    })->name('admin.index');
     Route::name('admin.')->prefix('admin')->group(function () {
-            Route::name('museums.')->prefix('museums')->group(function () {
-            Route::get('/', [MuseumController::class, 'index'])->name('index');
-            Route::get('/datatables', [MuseumController::class, 'indexData'])->name('datatables');
+        Route::name('subjects.')->prefix('subjects')->group(function () {
+            Route::get('/', [SubjectController::class, 'index'])->name('index');
+            Route::get('/datatables', [SubjectController::class, 'indexData'])->name('datatables');
 
-            Route::get('/{museum}/edit', [MuseumController::class, 'edit'])->name('edit');
-            Route::post('/{museum}/update', [MuseumController::class, 'update'])->name('update');
+            Route::get('/{subject}/edit', [SubjectController::class, 'edit'])->name('edit');
+            Route::post('/{subject}/update', [SubjectController::class, 'update'])->name('update');
 
-            Route::get('/create', [MuseumController::class, 'create'])->name('create');
-            Route::post('/store', [MuseumController::class, 'store'])->name('store');
+            Route::get('/create', [SubjectController::class, 'create'])->name('create');
+            Route::post('/store', [SubjectController::class, 'store'])->name('store');
         });
 
     });
 });
-
-
-//Route::get('/', function () {
-//    return view('map.index');
-//});
 
 Route::get('/{any}', function () {
     return view('map.index');

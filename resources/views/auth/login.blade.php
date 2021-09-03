@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="app-locale" content="{{ App::getLocale() }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Авторизация - Школьные музеи Москвы</title>
+    <title>Авторизация - Волонтеры Москвы</title>
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>

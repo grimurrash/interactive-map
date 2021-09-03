@@ -1,7 +1,7 @@
 <template>
   <section class="action-panel">
     <template v-if="settings.showFilters">
-      <button class="action-panel__title" v-on:click="toggleFilters">Категории музеев</button>
+<!--      <button class="action-panel__title" v-on:click="toggleFilters">Категории музеев</button>-->
     </template>
     <template v-else>
       <button class="action-panel__btn" @click="prevStage" v-if="settings.stage !== 'CITY'">
@@ -28,10 +28,10 @@
           v-model.trim="search"
       >
     </template>
-    <button class="action-panel__btn" v-on:click="toggleFilters" v-if="openSearch">
-      <img alt="filter" width="18" height="17" src="public/img/filter-icon-black.svg"/>
-      <div class="badge">{{ filters.current.length }}</div>
-    </button>
+<!--    <button class="action-panel__btn" v-on:click="toggleFilters" v-if="openSearch">-->
+<!--      <img alt="filter" width="18" height="17" src="public/img/filter-icon-black.svg"/>-->
+<!--      <div class="badge">{{ filters.current.length }}</div>-->
+<!--    </button>-->
   </section>
 </template>
 
@@ -71,12 +71,12 @@ export default {
         case stages.district:
           delete query.district
           break
-        case stages.museum:
-          delete query.museum
+        case stages.subject:
+          delete query.subject
           break
         case stages.search:
           delete query.search
-          delete query.museum
+          delete query.subject
           break
       }
       this.$router.push({
@@ -97,7 +97,7 @@ export default {
       )
 
       if (this.search.length > 0) {
-        delete query.museum
+        delete query.subject
         if (query.search !== this.search) {
           query.search = this.search
           this.$router.push({

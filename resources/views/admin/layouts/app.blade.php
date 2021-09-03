@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="app-locale" content="{{ App::getLocale() }}">
-    <title>Школьные музеи Москвы - Админ</title>
+    <title>Волонтеры Москвы - Админ</title>
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <style>
@@ -29,10 +29,10 @@
 
             <ul class="sidebar-nav">
                 <li class="sidebar-header">
-                    Музеи
+                    Волонтеры
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('admin.museums.index') }}">
+                    <a class="sidebar-link" href="{{ route('admin.subjects.index') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                              class="feather feather-list align-middle">
@@ -43,19 +43,19 @@
                             <line x1="3" y1="12" x2="3.01" y2="12"></line>
                             <line x1="3" y1="18" x2="3.01" y2="18"></line>
                         </svg>
-                        <span class="align-middle">Список музеев</span>
+                        <span class="align-middle">Список объектов волонтеров</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('admin.museums.create') }}">
+                    <a class="sidebar-link" href="{{ route('admin.subjects.create') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                              class="feather feather-check-square align-middle">
                             <polyline points="9 11 12 14 22 4"></polyline>
                             <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
                         </svg>
-                        <span class="align-middle">Добавить музей</span>
+                        <span class="align-middle">Добавить объект валонтеров</span>
                     </a>
                 </li>
             </ul>

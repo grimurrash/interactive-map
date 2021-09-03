@@ -2,7 +2,7 @@ import ClearStore from './ClearStore'
 import Filters from './Filters'
 import District from './DIstrict'
 import DistrictList from './DistrictList'
-import Museum from './Museum'
+import Subject from './Subject'
 import Search from './Search'
 import Stage from './Stage'
 
@@ -12,7 +12,7 @@ const modules = [
     Search,
     DistrictList,
     District,
-    Museum,
+    Subject,
     ClearStore
 ]
 
@@ -23,7 +23,7 @@ array.concat(
     Object.keys(Filters),
     Object.keys(District),
     Object.keys(DistrictList),
-    Object.keys(Museum),
+    Object.keys(Subject),
     Object.keys(Search),
     Object.keys(Stage)
 )

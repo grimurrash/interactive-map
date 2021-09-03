@@ -6,8 +6,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Request;
 
 /**
- * @property mixed id
- * @property mixed shortName
+ * @property int id
+ * @property string shortName
  */
 class DistrictResource extends JsonResource
 {

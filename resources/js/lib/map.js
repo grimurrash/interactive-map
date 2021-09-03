@@ -50,7 +50,7 @@ export default {
                     if (ob.main) {
                         bus.$emit('toDistrict', ob.id)
                     } else {
-                        bus.$emit('toMuseum', ob.id)
+                        bus.$emit('toSubject', ob.id)
                     }
                 }
             })
@@ -90,7 +90,7 @@ export default {
                         if (ob.main) {
                             bus.$emit('toDistrict', ob.id)
                         } else {
-                            bus.$emit('toMuseum', ob.id)
+                            bus.$emit('toSubject', ob.id)
                         }
                     }
                 })
@@ -206,9 +206,9 @@ export default {
             }
 
             if (main) {
-                properties.iconContent = p.museumsCount
-                properties.balloonContentHeader = `${p.museumsCount}<br/>`
-                properties.balloonContentBody = `Музеев в ${p.name}: ${p.museumsCount}`
+                properties.iconContent = p.subjectsCount
+                properties.balloonContentHeader = `${p.shortName}<br/>`
+                properties.balloonContentBody = `Музеев в ${p.shortName}: ${p.subjectsCount}`
             } else {
                 properties.hintContent = p.name || p.title
                 properties.balloonContentHeader = `${p.name || p.title}<br/>`
