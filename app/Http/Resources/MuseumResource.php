@@ -26,6 +26,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed typeId
  * @property mixed museumType
  * @property mixed website
+ * @method imagesUrls()
  */
 class MuseumResource extends JsonResource
 {
@@ -52,6 +53,7 @@ class MuseumResource extends JsonResource
                 'phone' => $this->directorPhone,
             ],
             'email' => $this->email,
+            'imagesUrl' => $this->imagesUrls(),
             'founderFIO' => $this->founderFIO,
             'location' => $this->location,
             'districtId' => $this->districtId,

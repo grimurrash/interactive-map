@@ -160,6 +160,19 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="mb-3 row">
+                            <label for="imagesUrlStr" class="col-sm-3 col-form-label text-sm-end">Ссылки на фото</label>
+                            <div class="col-sm-8">
+                                <textarea placeholder="Ссылки на фото (Каждая фотография новая строка)"
+                                          class="form-control" rows="3" name="imagesUrlStr"
+                                          id="imagesUrlStr"></textarea>
+                                @error('imagesUrlStr')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
                         <hr>
                         <div class="mb-3 row">
                             <label for="founderFIO" class="col-sm-3 col-form-label text-sm-end">Основатель (ФИО)</label>

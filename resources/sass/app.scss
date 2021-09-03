@@ -384,7 +384,7 @@ body {
     @include left-panel;
 
     overflow-y: auto;
-    max-height: calc(100vh - 14em);
+    max-height: calc(100vh - 10em);
 }
 
 .content {

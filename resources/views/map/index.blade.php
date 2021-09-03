@@ -12,8 +12,9 @@
 <body>
 <div id="app">
 </div>
-<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=6e34736c-2933-4bcc-9407-5da11fd2d9fa&load=package.map"
-        type="text/javascript"></script>
+{{--<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=6e34736c-2933-4bcc-9407-5da11fd2d9fa&load=package.map"--}}
+{{--        type="text/javascript"></script>--}}
+<script src="https://api-maps.yandex.ru/2.1/?load=package.full&lang=ru-RU&apikey=32dc5ebb-16e4-496c-8c51-f215bf3347f1"></script>
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 </body>

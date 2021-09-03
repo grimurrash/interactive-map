@@ -35,7 +35,8 @@
 
         function formTemplate(d) {
             // `d` is the original data object for the row
-            return `<div class="col-sm-12">
+            return `
+<div class="col-sm-12">
     <div class="card" style="box-shadow: 0px 0px 0.875rem 0 rgb(34 38 41 / 20%)">
         <div class="card-header">
             <div class="row">
@@ -56,148 +57,156 @@
                     <div class="col-sm-8">
                         <input type="text" placeholder="Название музея" req class="form-control" id="name" name="name"
                                value="${d.name}" required>
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="description" class="col-sm-3 col-form-label text-sm-end">Описание</label>
-                    <div class="col-sm-8">
-                            <textarea placeholder="Историческая справка (кратко)" class="form-control" rows="5"
-                                      name="description"
-                                      id="description">${d.description}</textarea>
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="typeId" class="col-sm-3 col-form-label text-sm-end">Категория музея</label>
-                    <div class="col-sm-8">
-                        <select name="typeId" value="${d.typeId}" id="typeId" required class="form-select">
-                            @foreach($museumTypes as $type)
-            <option value="{{ $type->id }}">{{ $type->name }}</option>
-                            @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="mb-3 row">
-        <label for="districtId" class="col-sm-3 col-form-label text-sm-end">Округ</label>
-        <div class="col-sm-8">
-            <select name="districtId" value="${d.districtId}" required id="districtId" class="form-select">
-                            @foreach($districts as $district)
-            <option value="{{ $district->id }}">{{ $district->name }}</option>
-                            @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="mb-3 row">
-        <label for="address" class="col-sm-3 col-form-label text-sm-end">Фактический адрес</label>
-        <div class="col-sm-8">
-            <input type="text" placeholder="Фактический адрес (необязательно)" class="form-control"
-                   id="address"
-                   name="address" value="${d.address}">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="location" class="col-sm-3 col-form-label text-sm-end">Школа</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Школа (необязательно)" class="form-control" id="location"
-                               name="location" value="${d.location}">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="website" class="col-sm-3 col-form-label text-sm-end">Сайт музея</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Сайт музея (необязательно)" class="form-control" id="website"
-                               name="website" value="${d.website}">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="phone" class="col-sm-3 col-form-label text-sm-end">Телефон музея</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Телефон музея (необязательно)" class="form-control" id="phone"
-                               name="phone" value="${d.phone}">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="email" class="col-sm-3 col-form-label text-sm-end">Электроная почта</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Электроная почта (необязательно)" class="form-control"
-                               id="email"
-                               name="email" value="${d.email}">
-                    </div>
-                </div>
-                <hr>
-                <div class="mb-3 row">
-                    <label for="founderFIO" class="col-sm-3 col-form-label text-sm-end">Основатель (ФИО)</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Основатель (ФИО) (необязательно)" class="form-control"
-                               id="founderFIO"
-                               name="founderFIO" value="${d.founderFIO}">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="createDate" class="col-sm-3 col-form-label text-sm-end">Дата создания музея</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Дата создания музея (необязательно)" class="form-control"
-                               id="createDate"
-                               name="createDate" value="${d.createDate}">
-                    </div>
-                </div>
-                <hr>
-                <div class="mb-3 row">
-                    <label for="directorFio" class="col-sm-3 col-form-label text-sm-end">Руководитель музея
-                        (ФИО)</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Руководитель музея (ФИО) (необязательно)" class="form-control"
-                               id="directorFio"
-                               name="directorFio" value="${d.directorFio}">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="directorPhone" class="col-sm-3 col-form-label text-sm-end">Руководитель музея
-                        (телефон)</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Руководитель музея (телефон) (необязательно)"
-                               class="form-control"
-                               id="directorPhone"
-                               name="directorPhone" value="${d.directorPhone}">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="directorEmail" class="col-sm-3 col-form-label text-sm-end">Руководитель музея
-                        (email)</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Руководитель музея (адрес электронной почты) (необязательно)"
-                               class="form-control" id="directorEmail"
-                               name="directorEmail" value="${d.directorEmail}">
-                    </div>
-                </div>
-                <hr>
-                <div class="mb-3 row">
-                    <label for="code" class="col-sm-3 col-form-label text-sm-end">Код в реестре</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Код в реестре" class="form-control" id="code" name="code"
-                               value="${d.code}" disabled>
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="Latitude" class="col-sm-3 col-form-label text-sm-end">GPS координаты</label>
-                    <div class="col-sm-8">
-                        <div class="input-group">
-                            <input type="text" placeholder="Широта (54-57)" class="form-control" id="Latitude"
-                                   name="Latitude" value="${d.Latitude}" disabled>
-                            <input type="text" placeholder="Долгота (36-39)" class="form-control" id="Longitude"
-                                   name="Longitude" value="${d.Longitude}" disabled>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <div class="col-sm-10 ms-sm-auto">
-                        <button class="btn btn-primary" onclick="btnSubmitEditForm()" type="button">Сохранить</button>
-                        <button class="btn btn-outline-secondary btn-form-close" type="button">Закрыть</button>
+                    <div class="mb-3 row">
+                        <label for="description" class="col-sm-3 col-form-label text-sm-end">Описание</label>
+                        <div class="col-sm-8">
+                                <textarea placeholder="Историческая справка (кратко)" class="form-control" rows="5"
+                                          name="description"
+                                          id="description">${d.description}</textarea>
+                        </div>
                     </div>
-                </div>
-            </form>
+                    <div class="mb-3 row">
+                        <label for="typeId" class="col-sm-3 col-form-label text-sm-end">Категория музея</label>
+                        <div class="col-sm-8">
+                            <select name="typeId" value="${d.typeId}" id="typeId" required class="form-select">
+                                @foreach($museumTypes as $type)
+                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="districtId" class="col-sm-3 col-form-label text-sm-end">Округ</label>
+                        <div class="col-sm-8">
+                            <select name="districtId" value="${d.districtId}" required id="districtId" class="form-select">
+                                            @foreach($districts as $district)
+                            <option value="{{ $district->id }}">{{ $district->name }}</option>
+                                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="address" class="col-sm-3 col-form-label text-sm-end">Фактический адрес</label>
+                        <div class="col-sm-8">
+                            <input type="text" placeholder="Фактический адрес (необязательно)" class="form-control"
+                                   id="address"
+                                   name="address" value="${d.address}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="location" class="col-sm-3 col-form-label text-sm-end">Школа</label>
+                        <div class="col-sm-8">
+                            <input type="text" placeholder="Школа (необязательно)" class="form-control" id="location"
+                                   name="location" value="${d.location}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="website" class="col-sm-3 col-form-label text-sm-end">Сайт музея</label>
+                        <div class="col-sm-8">
+                            <input type="text" placeholder="Сайт музея (необязательно)" class="form-control" id="website"
+                                   name="website" value="${d.website}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="phone" class="col-sm-3 col-form-label text-sm-end">Телефон музея</label>
+                        <div class="col-sm-8">
+                            <input type="text" placeholder="Телефон музея (необязательно)" class="form-control" id="phone"
+                                   name="phone" value="${d.phone}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="email" class="col-sm-3 col-form-label text-sm-end">Электроная почта</label>
+                        <div class="col-sm-8">
+                            <input type="text" placeholder="Электроная почта (необязательно)" class="form-control"
+                                   id="email"
+                                   name="email" value="${d.email}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="imagesUrlStr" class="col-sm-3 col-form-label text-sm-end">Ссылки на фото</label>
+                        <div class="col-sm-8">
+                                <textarea placeholder="Ссылки на фото (Каждая фотография новая строка)" class="form-control" rows="3"
+                                          name="imagesUrlStr"
+                                          id="imagesUrlStr">${d.imagesUrlStr}</textarea>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mb-3 row">
+                        <label for="founderFIO" class="col-sm-3 col-form-label text-sm-end">Основатель (ФИО)</label>
+                        <div class="col-sm-8">
+                            <input type="text" placeholder="Основатель (ФИО) (необязательно)" class="form-control"
+                                   id="founderFIO"
+                                   name="founderFIO" value="${d.founderFIO}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="createDate" class="col-sm-3 col-form-label text-sm-end">Дата создания музея</label>
+                        <div class="col-sm-8">
+                            <input type="text" placeholder="Дата создания музея (необязательно)" class="form-control"
+                                   id="createDate"
+                                   name="createDate" value="${d.createDate}">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mb-3 row">
+                        <label for="directorFio" class="col-sm-3 col-form-label text-sm-end">Руководитель музея
+                            (ФИО)</label>
+                        <div class="col-sm-8">
+                            <input type="text" placeholder="Руководитель музея (ФИО) (необязательно)" class="form-control"
+                                   id="directorFio"
+                                   name="directorFio" value="${d.directorFio}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="directorPhone" class="col-sm-3 col-form-label text-sm-end">Руководитель музея
+                            (телефон)</label>
+                        <div class="col-sm-8">
+                            <input type="text" placeholder="Руководитель музея (телефон) (необязательно)"
+                                   class="form-control"
+                                   id="directorPhone"
+                                   name="directorPhone" value="${d.directorPhone}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="directorEmail" class="col-sm-3 col-form-label text-sm-end">Руководитель музея
+                            (email)</label>
+                        <div class="col-sm-8">
+                            <input type="text" placeholder="Руководитель музея (адрес электронной почты) (необязательно)"
+                                   class="form-control" id="directorEmail"
+                                   name="directorEmail" value="${d.directorEmail}">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mb-3 row">
+                        <label for="code" class="col-sm-3 col-form-label text-sm-end">Код в реестре</label>
+                        <div class="col-sm-8">
+                            <input type="text" placeholder="Код в реестре" class="form-control" id="code" name="code"
+                                   value="${d.code}" disabled>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="Latitude" class="col-sm-3 col-form-label text-sm-end">GPS координаты</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" placeholder="Широта (54-57)" class="form-control" id="Latitude"
+                                       name="Latitude" value="${d.Latitude}" disabled>
+                                <input type="text" placeholder="Долгота (36-39)" class="form-control" id="Longitude"
+                                       name="Longitude" value="${d.Longitude}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-sm-10 ms-sm-auto">
+                            <button class="btn btn-primary" onclick="btnSubmitEditForm()" type="button">Сохранить</button>
+                            <button class="btn btn-outline-secondary btn-form-close" type="button">Закрыть</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-</div>`;
+    </div>`;
         }
 
 

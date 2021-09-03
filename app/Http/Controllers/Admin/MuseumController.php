@@ -41,7 +41,6 @@ class MuseumController extends Controller
 
     public function store(Request $request)
     {
-        $form = $request->all();
         $request->validate([
             'name' => ['required', 'max:255'],
             'code' => ['required', 'numeric'],
@@ -81,6 +80,7 @@ class MuseumController extends Controller
             'directorEmail.max' => 'Ваш электронный адрес руководителя музея слишком длинный',
         ]);
         $form = $request->all();
+
         Museum::create([
             'name' => $form['name'],
             'description' => $form['description'] ?? "",
@@ -94,6 +94,7 @@ class MuseumController extends Controller
             'website' => $form['website'] ?? "",
             'phone' => $form['phone'] ?? "",
             'email' => $form['email'] ?? "",
+            'imagesUrlStr'=> $form['imagesUrlStr'],
             'founderFIO' => $form['founderFIO'] ?? "",
             'createDate' => $form['createDate'] ?? "",
             'directorFio' => $form['directorFio'] ?? "",
@@ -123,6 +124,7 @@ class MuseumController extends Controller
             'website' => $form['website'] ?? "",
             'phone' => $form['phone'] ?? "",
             'email' => $form['email'] ?? "",
+            'imagesUrlStr'=> $form['imagesUrlStr'],
             'founderFIO' => $form['founderFIO'] ?? "",
             'createDate' => $form['createDate'] ?? "",
             'directorFio' => $form['directorFio'] ?? "",

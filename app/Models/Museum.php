@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string imagesUrlStr
+ */
 class Museum extends Model
 {
     use HasFactory;
@@ -21,5 +24,12 @@ class Museum extends Model
     public function district(): BelongsTo
     {
         return $this->belongsTo(District::class, 'districtId', 'id');
+    }
+
+
+    public function imagesUrls() {
+        return array_filter(explode("\r\n", $this->imagesUrlStr), function ($image) {
+            return $image !== '';
+        });
     }
 }

@@ -12,7 +12,7 @@ const state = {
         behaviors: ['drag', 'scrollZoom', 'dblClickZoom', 'multiTouch'],
         options: {
             minZoom: 9,
-            maxZoom: 16,
+            maxZoom: 18,
             maxAnimationZoomDifference: 15,
             suppressMapOpenBlock: false,
             restrictMapArea: [
