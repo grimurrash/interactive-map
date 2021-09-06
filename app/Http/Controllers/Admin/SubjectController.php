@@ -48,7 +48,6 @@ class SubjectController extends Controller
     {
         $request->validate([
             'name' => ['required', 'max:255'],
-            'typeId' => ['required', 'numeric'],
             'districtId' => ['required', 'numeric'],
             'Latitude' => ['required', 'regex:/^\b(54|55|56|57)\b(\.\d{0,10})?$/'],
             'Longitude' => ['required', 'regex: /^\b(36|37|38|39)\b(\.\d{0,10})?$/'],

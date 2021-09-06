@@ -16,6 +16,10 @@
         .invalid-feedback {
             display: block;
         }
+
+        table td {
+            word-wrap: anywhere;
+        }
     </style>
 </head>
 
