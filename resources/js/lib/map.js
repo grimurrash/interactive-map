@@ -206,9 +206,9 @@ export default {
             }
 
             if (main) {
-                properties.iconContent = p.subjectsCount
+                properties.iconContent = p.subjectsCount === 1 ? '' : p.subjectsCount
                 properties.balloonContentHeader = `${p.shortName}<br/>`
-                properties.balloonContentBody = `Музеев в ${p.shortName}: ${p.subjectsCount}`
+                properties.balloonContentBody = `Объектов в ${p.shortName}: ${p.subjectsCount}`
             } else {
                 properties.hintContent = p.name || p.title
                 properties.balloonContentHeader = `${p.name || p.title}<br/>`

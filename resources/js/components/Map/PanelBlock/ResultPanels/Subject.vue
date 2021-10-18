@@ -2,23 +2,23 @@
   <div class="content subject" v-if="currentSubject">
     <h2>{{ currentSubject.name }}</h2>
     <div class="wrapper">
-      <div class="info">
+      <div class="info" v-if="currentSubject.websit || currentSubject.address">
         <ul>
           <li v-if="currentSubject.website">
             <a :href="`http://${currentSubject.website}`">
-              <img src="public/img/website-icon.svg"/>
+              <img src="public/img/website-icon.svg" alt=""/>
               {{ currentSubject.website }}
             </a>
           </li>
           <li v-if="currentSubject.address">
             <a href="" v-on:click.prevent="openBaloon(currentSubject.id)">
-              <img src="public/img/place-icon.svg"/>
+              <img src="public/img/place-icon.svg" alt=""/>
               {{ currentSubject.address }}
             </a>
           </li>
         </ul>
       </div>
-      <div class="info">
+      <div class="info" v-if="currentSubject.founderFIO || currentSubject.createDate">
         <h3>Дополнительная информация</h3>
         <ul>
           <!--                    <li v-if="currentSubject.type.name"><b>Тип:</b> Музей {{ currentSubject.type.name }}</li>-->
@@ -26,8 +26,8 @@
           <li v-if="currentSubject.createDate"><b>Дата открытия:</b> {{ currentSubject.createDate }}</li>
         </ul>
       </div>
-      <div class="info">
-        <h3>Историческая справка (кратко)</h3>
+      <div class="info" v-if="currentSubject.description">
+        <h3>Описание</h3>
         <ul>
           <li>
             {{ currentSubject.description }}

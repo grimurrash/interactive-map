@@ -1,6 +1,6 @@
 <template>
   <div class="content subject-list" v-if="currentDistrict">
-    <h2>Музеи</h2>
+    <h2>Объекты</h2>
     <div class="wrapper">
       <ul>
         <li

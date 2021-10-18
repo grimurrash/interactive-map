@@ -183,7 +183,7 @@
             ]
         })
 
-        $('#subjects-table tbody').on('click', 'td.table-action', function () {
+        $('#subjects-table tbody').on('click', 'td.table-action .feather-edit-2', function () {
             let tr = $(this).closest('tr');
             let row = table.row(tr);
 
@@ -217,5 +217,13 @@
                     })
             }
         });
+        $('#subjects-table tbody').on('click', 'td.table-action .delete', function () {
+            let tr = $(this).closest('tr');
+            let row = table.row(tr);
+            fetch(`/admin/subjects/${row.data().id}/delete`)
+                .then(() => {
+                    table.ajax.reload()
+                })
+        })
     </script>
 @endpush

@@ -20,6 +20,7 @@
         table td {
             word-wrap: anywhere;
         }
+
     </style>
 </head>
 
