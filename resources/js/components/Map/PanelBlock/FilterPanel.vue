@@ -11,7 +11,7 @@
 
         v-on:click="toggleFilter(type.id)"
     >
-      Объекты {{ type.name }}
+      {{ type.name }}
     </button>
   </section>
 </template>

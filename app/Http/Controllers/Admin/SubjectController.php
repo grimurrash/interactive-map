@@ -10,6 +10,10 @@ use App\Models\SubjectType;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use MoveMoveIo\DaData\Enums\Language;
+use MoveMoveIo\DaData\Facades\DaDataAddress;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use yajra\Datatables\DataTables;
 
 class SubjectController extends Controller
@@ -26,9 +30,9 @@ class SubjectController extends Controller
      */
     public function indexData()
     {
-        $museums = Subject::query()
+        $subjects = Subject::query()
             ->select('id', 'name', 'typeId', 'districtId', 'description')->get();
-        return DataTables::of(AdminSubjectsResource::collection($museums))
+        return DataTables::of(AdminSubjectsResource::collection($subjects))
             ->addColumn('action', function () {
                 return '
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 align-middle"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
@@ -49,13 +53,11 @@ class SubjectController extends Controller
     {
         $request->validate([
             'name' => ['required', 'max:255'],
+            'typeId' => ['required', 'numeric'],
             'districtId' => ['required', 'numeric'],
             'Latitude' => ['required', 'regex:/^\b(54|55|56|57)\b(\.\d{0,10})?$/'],
             'Longitude' => ['required', 'regex: /^\b(36|37|38|39)\b(\.\d{0,10})?$/'],
             'address' => 'max:255',
-            'website' => 'max:255',
-            'founderFIO' => 'max:255',
-            'createDate' => 'max:255',
         ], [
             'name.required' => 'Введите наименование музея',
             'name.max' => 'Ваше наименование музея слишком длинное',
@@ -65,9 +67,6 @@ class SubjectController extends Controller
             'Longitude.regex' => 'Долгота должна быть в диапозоне от 36 до 39',
             'districtId.required' => 'Введите административный округ',
             'address.max' => 'Ваш адрес слишком длинный',
-            'website.max' => 'Ваш адрес сайт слишком длинный',
-            'founderFIO.max' => 'Ваш ФИО основателя слишком длинный',
-            'createDate.max' => 'Ваша дата основания слишком длинный',
         ]);
         $form = $request->all();
         Subject::query()->create([
@@ -78,10 +77,6 @@ class SubjectController extends Controller
             'Latitude' => $form['Latitude'],
             'Longitude' => $form['Longitude'],
             'address' => $form['address'] ?? "",
-            'website' => $form['website'] ?? "",
-            'video' => ($form['video'] ? str_replace('/watch?v=', '/embed/', $form['video']) : ''),
-            'founderFIO' => $form['founderFIO'] ?? "",
-            'createDate' => $form['createDate'] ?? "",
         ]);
         return redirect()->route('admin.subjects.index');
     }
@@ -99,13 +94,9 @@ class SubjectController extends Controller
         $updateSubject = [
             'name' => $form['name'],
             'description' => $form['description'] ?? "",
-//            'typeId' => $form['typeId'],
+            'typeId' => $form['typeId'],
             'districtId' => $form['districtId'],
             'address' => $form['address'] ?? "",
-            'website' => $form['website'] ?? "",
-            'video' => ($form['video'] ? str_replace('/watch?v=', '/embed/', $form['video']) : ''),
-            'founderFIO' => $form['founderFIO'] ?? "",
-            'createDate' => $form['createDate'] ?? "",
         ];
         $subject->update($updateSubject);
         return response()->json(['status' => true]);
@@ -116,5 +107,54 @@ class SubjectController extends Controller
         $subject->delete();
 
         return response()->json(['status'=> true]);
+    }
+
+    public function importFromExcel(Request $request)
+    {
+        $storageDir = storage_path('app');
+
+        $loadFile = $request->file('file');
+        $loadFileName = 'loadDataFile.' . $loadFile->getClientOriginalExtension();
+        Storage::put($loadFileName, file_get_contents($loadFile->getRealPath()));
+        $loadFilePath = $storageDir . '/' . $loadFileName;
+
+        $excel = IOFactory::load($loadFilePath);
+        $worksheet = $excel->getActiveSheet();
+        $loadDataList = $worksheet->toArray();
+        unset($excel);
+        unlink($loadFilePath);
+
+        $districts = District::all();
+        $types = SubjectType::all();
+
+        $insertData = [];
+        foreach ($loadDataList as $index => $row) {
+            if ($index < 3) continue;
+
+            try {
+                $coordination = explode(',', $row[5]);
+                $lat = trim($coordination[0]);
+                $lon = trim($coordination[1]);
+
+                $address = $row[4];
+                $geoData = DaDataAddress::geolocate($lat, $lon, 1, 50, Language::RU);
+                if (isset($geoData['suggestions'][0]))
+                    $address = $geoData['suggestions'][0]['unrestricted_value'];
+                $insertData[] = [
+                    'name' => trim($row[3]),
+                    'description' => trim($row[7] ?? ""),
+                    'typeId' => $types->where('name', '=', trim($row[2]))->first()->id,
+                    'districtId' => $districts->where('shortName', '=', $row[6])->first()->id,
+                    'Latitude' => $lat,
+                    'Longitude' => $lon,
+                    'address' => $address ?? "",
+                ];
+            } catch (\Exception $e) {
+                dd($row, $e);
+            }
+
+        }
+        Subject::query()->insert($insertData);
+        return response()->json(['status' => true]);
     }
 }

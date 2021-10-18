@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="app-locale" content="{{ App::getLocale() }}">
-    <title>Волонтеры Москвы - Админ</title>
+    <title>ЭКОКАРТА Москвы - Админ</title>
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <style>
@@ -34,7 +34,7 @@
 
             <ul class="sidebar-nav">
                 <li class="sidebar-header">
-                    Волонтеры
+                    ЭКОКАРТА
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('admin.subjects.index') }}">
@@ -48,7 +48,7 @@
                             <line x1="3" y1="12" x2="3.01" y2="12"></line>
                             <line x1="3" y1="18" x2="3.01" y2="18"></line>
                         </svg>
-                        <span class="align-middle">Список объектов волонтеров</span>
+                        <span class="align-middle">Список объектов</span>
                     </a>
                 </li>
 
@@ -60,7 +60,7 @@
                             <polyline points="9 11 12 14 22 4"></polyline>
                             <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
                         </svg>
-                        <span class="align-middle">Добавить объект валонтеров</span>
+                        <span class="align-middle">Добавить объект</span>
                     </a>
                 </li>
             </ul>

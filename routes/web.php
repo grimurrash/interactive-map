@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+Route::post('/importFromExcelFile', [SubjectController::class, 'importFromExcel']);
+
 Route::get('/{any}', function () {
     return view('map.index');
 })->where('any', '.*');

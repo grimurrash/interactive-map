@@ -9,8 +9,7 @@
       </p>
     </a>
     <h2 class="map-header__title">
-      <span>Москва</span>
-      <span>молодёжи</span>
+      <span>ЭКОКАРТА</span>
     </h2>
   </header>
 </template>

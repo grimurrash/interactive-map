@@ -206,13 +206,15 @@ export default {
             }
 
             if (main) {
-                properties.iconContent = p.subjectsCount === 1 ? '' : p.subjectsCount
+                properties.iconContent = p.subjectsCount
                 properties.balloonContentHeader = `${p.shortName}<br/>`
                 properties.balloonContentBody = `Объектов в ${p.shortName}: ${p.subjectsCount}`
             } else {
                 properties.hintContent = p.name || p.title
                 properties.balloonContentHeader = `${p.name || p.title}<br/>`
             }
+            let color = p.typeColor ? p.typeColor : p.type.color
+            console.log(color)
             obj.features.push({
                 type: 'Feature',
                 id: p.id,
@@ -224,8 +226,9 @@ export default {
                 },
                 properties,
                 options: {
-                    preset: main ? 'islands#blueCircleIcon' : 'islands#blueCircleDotIcon',
+                    preset: main ? 'islands#blueStretchyIcon' : 'islands#circleIcon',
                     hideIconOnBalloonOpen: false,
+                    iconColor: color,
                     hasBalloon: false
                 }
             })

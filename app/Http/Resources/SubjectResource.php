@@ -46,7 +46,8 @@ class SubjectResource extends JsonResource
             'districtName' => $this->district->name,
             'type' => [
                 'id' => $this->typeId,
-                'name' => $this->type->name
+                'name' => $this->type->name,
+                'color' => '#' . $this->type->color
             ],
             'website' => $this->website,
             'video' => $this->video

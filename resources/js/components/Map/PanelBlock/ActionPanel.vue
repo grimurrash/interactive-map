@@ -1,7 +1,7 @@
 <template>
   <section class="action-panel">
     <template v-if="settings.showFilters">
-<!--      <button class="action-panel__title" v-on:click="toggleFilters">Категории музеев</button>-->
+      <button class="action-panel__title" v-on:click="toggleFilters">Категории</button>
     </template>
     <template v-else>
       <button class="action-panel__btn" @click="prevStage" v-if="settings.stage !== 'CITY'">
@@ -28,10 +28,10 @@
           v-model.trim="search"
       >
     </template>
-<!--    <button class="action-panel__btn" v-on:click="toggleFilters" v-if="openSearch">-->
-<!--      <img alt="filter" width="18" height="17" src="public/img/filter-icon-black.svg"/>-->
-<!--      <div class="badge">{{ filters.current.length }}</div>-->
-<!--    </button>-->
+    <button class="action-panel__btn" v-on:click="toggleFilters" v-if="openSearch">
+      <img alt="filter" width="18" height="17" src="public/img/filter-icon-black.svg"/>
+      <div class="badge">{{ filters.current.length }}</div>
+    </button>
   </section>
 </template>
 

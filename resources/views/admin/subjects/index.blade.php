@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <h3 class="h3 mb-3">Список объектов волонтеров</h3>
+    <h3 class="h3 mb-3">Список объектов</h3>
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -11,9 +11,9 @@
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Название объекта</th>
-{{--                            <th scope="col">Тип объекта</th>--}}
+                            <th scope="col">Тип объекта</th>
                             <th scope="col">Округ</th>
-                            <th scope="col">Историческая справка (кратко)</th>
+                            <th scope="col">Информация (кратко)</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -67,23 +67,23 @@
                         </textarea>
                     </div>
                 </div>
-                {{--<div class="mb-3 row">--}}
-                {{--    <label for="typeId" class="col-sm-3 col-form-label text-sm-end">Категория музея</label>--}}
-                {{--    <div class="col-sm-8">--}}
-                {{--        <select name="typeId" value="${d.typeId}" id="typeId" required class="form-select">--}}
-                {{--            @foreach($subjectsTypes as $type)--}}
-                {{--            <option value="{{ $type->id }}">{{ $type->name }}</option>--}}
-                {{--            @endforeach--}}
-                {{--        </select>--}}
-                {{--    </div>--}}
-                {{--</div>--}}
+                <div class="mb-3 row">
+                    <label for="typeId" class="col-sm-3 col-form-label text-sm-end">Категория музея</label>
+                    <div class="col-sm-8">
+                        <select name="typeId" value="${d.typeId}" id="typeId" required class="form-select">
+                            @foreach($subjectTypes as $type)
+                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <div class="mb-3 row">
                     <label for="districtId" class="col-sm-3 col-form-label text-sm-end">Округ</label>
                     <div class="col-sm-8">
                         <select name="districtId" value="${d.districtId}" required id="districtId" class="form-select">
-                                        @foreach($districts as $district)
-                        <option value="{{ $district->id }}">{{ $district->name }}</option>
-                                        @endforeach
+                            @foreach($districts as $district)
+                            <option value="{{ $district->id }}">{{ $district->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -91,42 +91,10 @@
                     <label for="address" class="col-sm-3 col-form-label text-sm-end">Фактический адрес</label>
                     <div class="col-sm-8">
                         <input type="text" placeholder="Фактический адрес (необязательно)" class="form-control"
-                               id="address"
-                               name="address" value="${d.address}">
+                                id="address"
+                                name="address" value="${d.address}">
                     </div>
                 </div>
-                <div class="mb-3 row">
-                    <label for="website" class="col-sm-3 col-form-label text-sm-end">Сайт объекта</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Сайт объекта (необязательно)" class="form-control" id="website"
-                               name="website" value="${d.website}">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="video" class="col-sm-3 col-form-label text-sm-end">Видео</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Видео" req class="form-control" id="video" name="video"
-                               value="${d.video}" required>
-                    </div>
-                </div>
-                <hr>
-                <div class="mb-3 row">
-                    <label for="founderFIO" class="col-sm-3 col-form-label text-sm-end">Основатель (ФИО)</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Основатель (ФИО) (необязательно)" class="form-control"
-                               id="founderFIO"
-                               name="founderFIO" value="${d.founderFIO}">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="createDate" class="col-sm-3 col-form-label text-sm-end">Дата создания музея</label>
-                    <div class="col-sm-8">
-                        <input type="text" placeholder="Дата открытия (необязательно)" class="form-control"
-                               id="createDate"
-                               name="createDate" value="${d.createDate}">
-                    </div>
-                </div>
-                <hr>
                 <div class="mb-3 row">
                     <label for="Latitude" class="col-sm-3 col-form-label text-sm-end">GPS координаты</label>
                     <div class="col-sm-8">
@@ -176,7 +144,7 @@
             columns: [
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},
-                // {data: 'type', name: 'type'},
+                {data: 'type', name: 'type'},
                 {data: 'district', name: 'district'},
                 {data: 'description', name: 'description'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, className: 'table-action'}
@@ -208,7 +176,7 @@
                             if (parseInt(selectDistrictId[i].value) === parseInt(data.subject.districtId)) selectDistrictId[i].selected = true;
                         }
 
-                        $(".btn-form-close").on('click',() => {
+                        $(".btn-form-close").on('click', () => {
                             row.child.hide();
                             $("html,body").scrollTop($(this).offset().top - 150);
                             tr.removeClass('shown');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SubjectResource;
+use App\Http\Resources\SubjectsResource;
 use App\Models\Polygon;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class SubjectController extends Controller
         return response()->json([
             'district' => [
                 'id' => $districtId,
-                'points' => $subjects,
+                'points' => SubjectsResource::collection($subjects),
                 'polygons' => $polygonIds
             ],
         ])->setStatusCode(200);

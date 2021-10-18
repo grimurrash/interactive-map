@@ -12,6 +12,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property int districtId
  * @property double Latitude
  * @property double Longitude
+ * @property mixed type
  */
 class SubjectsResource extends JsonResource
 {
@@ -27,6 +28,7 @@ class SubjectsResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'typeId' => $this->typeId,
+            'typeColor' => '#' . $this->type->color,
             'districtId' => $this->districtId,
             'Latitude' => $this->Latitude,
             'Longitude' => $this->Longitude

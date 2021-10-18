@@ -2,28 +2,14 @@
   <div class="content subject" v-if="currentSubject">
     <h2>{{ currentSubject.name }}</h2>
     <div class="wrapper">
-      <div class="info" v-if="currentSubject.websit || currentSubject.address">
+      <div class="info" v-if="currentSubject.address">
         <ul>
-          <li v-if="currentSubject.website">
-            <a :href="`http://${currentSubject.website}`">
-              <img src="public/img/website-icon.svg" alt=""/>
-              {{ currentSubject.website }}
-            </a>
-          </li>
           <li v-if="currentSubject.address">
             <a href="" v-on:click.prevent="openBaloon(currentSubject.id)">
               <img src="public/img/place-icon.svg" alt=""/>
               {{ currentSubject.address }}
             </a>
           </li>
-        </ul>
-      </div>
-      <div class="info" v-if="currentSubject.founderFIO || currentSubject.createDate">
-        <h3>Дополнительная информация</h3>
-        <ul>
-          <!--                    <li v-if="currentSubject.type.name"><b>Тип:</b> Музей {{ currentSubject.type.name }}</li>-->
-          <li v-if="currentSubject.founderFIO"><b>Основатель:</b> {{ currentSubject.founderFIO }}</li>
-          <li v-if="currentSubject.createDate"><b>Дата открытия:</b> {{ currentSubject.createDate }}</li>
         </ul>
       </div>
       <div class="info" v-if="currentSubject.description">
@@ -33,13 +19,6 @@
             {{ currentSubject.description }}
           </li>
         </ul>
-      </div>
-      <div class="info" v-if="currentSubject.video !== ''">
-        <h3>Видео</h3>
-        <iframe ref="iframe" id="iframeVideo" :src="currentSubject.video" :title="currentSubject.name" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen :style="{height: iframeHeight + 'px'}" @load="setHeight"></iframe>
-
       </div>
     </div>
   </div>

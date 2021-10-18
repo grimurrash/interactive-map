@@ -27,7 +27,7 @@ class AdminSubjectsResource extends JsonResource
         return [
             'id' => $this->id,
             'name' =>$this->name,
-//            'type'=>$this->type->name,
+            'type'=>$this->type->name,
             'district'=>$this->district->name,
             'description' =>$this->description
         ];

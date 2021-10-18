@@ -25,12 +25,6 @@ class CreateSubjectsTable extends Migration
             $table->double('Longitude');
             $table->string('address');
 
-            $table->string('website');
-            $table->string('video');
-
-            $table->string('founderFIO');
-            $table->string('createDate');
-
             $table->foreign('typeId')->references('id')->on('subject_types')->onDelete('cascade');
             $table->foreign('districtId')->references('id')->on('districts')->onDelete('cascade');
         });
