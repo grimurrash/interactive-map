@@ -19,20 +19,21 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('admin.museums.index');
     });
     Route::name('admin.')->prefix('admin')->group(function () {
-            Route::name('museums.')->prefix('museums')->group(function () {
+        Route::name('museums.')->prefix('museums')->group(function () {
             Route::get('/', [MuseumController::class, 'index'])->name('index');
             Route::get('/datatables', [MuseumController::class, 'indexData'])->name('datatables');
 
             Route::get('/{museum}/edit', [MuseumController::class, 'edit'])->name('edit');
             Route::post('/{museum}/update', [MuseumController::class, 'update'])->name('update');
+            Route::get('/{museum}/delete', [MuseumController::class, 'destroy'])->name('destroy');
 
             Route::get('/create', [MuseumController::class, 'create'])->name('create');
             Route::post('/store', [MuseumController::class, 'store'])->name('store');
         });
-
     });
 });
 
+Route::post('/importFromExcelFile', [MuseumController::class, 'importFromExcel']);
 
 //Route::get('/', function () {
 //    return view('map.index');

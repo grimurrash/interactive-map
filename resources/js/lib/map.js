@@ -202,7 +202,7 @@ export default {
         points.map(function (p) {
             let properties = {
                 id: p.id,
-                title: p.name
+                title: p.name,
             }
 
             if (main) {
@@ -224,9 +224,9 @@ export default {
                 },
                 properties,
                 options: {
-                    preset: main ? 'islands#blueCircleIcon' : 'islands#blueCircleDotIcon',
+                    preset: main ? 'islands#blueStretchyIcon' : 'islands#blueCircleDotIcon',
                     hideIconOnBalloonOpen: false,
-                    hasBalloon: false
+                    hasBalloon: false,
                 }
             })
         })

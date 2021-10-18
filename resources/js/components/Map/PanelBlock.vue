@@ -1,5 +1,5 @@
 <template>
-  <div class="panel">
+  <div class="panel" :class="{'is-full-panel': settings.isFullResultBlock}">
     <action-panel/>
     <template v-if="settings.showFilters">
         <filter-panel/>

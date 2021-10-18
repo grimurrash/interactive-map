@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
+        MoveMoveIo\DaData\DaDataServiceProvider::class,
 
         /*
          * Application Service Providers...

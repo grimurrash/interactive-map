@@ -243,7 +243,7 @@
             ]
         })
 
-        $('#museums-table tbody').on('click', 'td.table-action', function () {
+        $('#museums-table tbody').on('click', 'td.table-action .feather-edit-2', function () {
             var tr = $(this).closest('tr');
             var row = table.row(tr);
 
@@ -277,5 +277,13 @@
                     })
             }
         });
+        $('#museums-table tbody').on('click', 'td.table-action .delete', function () {
+            let tr = $(this).closest('tr');
+            let row = table.row(tr);
+            fetch(`/admin/museums/${row.data().id}/delete`)
+                .then(() => {
+                    table.ajax.reload()
+                })
+        })
     </script>
 @endpush

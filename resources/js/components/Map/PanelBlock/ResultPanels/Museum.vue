@@ -1,15 +1,20 @@
 <template>
   <div class="content museum" v-if="currentMuseum">
-    <h2>{{ currentMuseum.name }}</h2>
+    <div class="museum-title">
+      <h2>{{ currentMuseum.name }}</h2>
+      <div>
+        <img alt="compress" @click="changeResultPanelBlockSize(false)" v-if="settings.isFullResultBlock"
+             src="/public/img/compress.svg"/>
+        <img alt="fullscreen" @click="changeResultPanelBlockSize(true)" v-else src="/public/img/expand-fullscreen.svg"/>
+      </div>
+    </div>
 
     <div class="wrapper">
       <div class="info" v-if="currentMuseum.imagesUrl.length !== 0">
-        <viewer :images="currentMuseum.imagesUrl"
-                @inited="inited"
-                class="viewer" ref="viewer"
+        <viewer :images="currentMuseum.imagesUrl" @inited="inited" class="viewer" ref="viewer"
         >
           <template #default="scope">
-            <agile :initial-slide="0">
+            <agile ref="carousel" :initial-slide="0" :slidesToShow="1">
               <img class="slide" v-for="src in scope.images" :src="src" :key="src" alt="">
               <template v-slot:nextButton>
                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right"
@@ -34,7 +39,7 @@
       <div class="info">
         <ul>
           <li v-if="currentMuseum.website">
-            <a :href="`http://${currentMuseum.website}`">
+            <a :href="`${currentMuseum.website}`" target="_blank">
               <img src="public/img/website-icon.svg"/>
               {{ currentMuseum.website }}
             </a>
@@ -113,7 +118,7 @@ export default {
     Viewer,
   },
   computed: {
-    ...mapGetters(['currentMuseum'])
+    ...mapGetters(['currentMuseum', 'settings'])
   },
   mounted() {
     bus.$on('toMuseum', () => {
@@ -139,10 +144,23 @@ export default {
     },
     show() {
       this.$viewer.show()
+    },
+    changeResultPanelBlockSize(size = false) {
+      this.$store.commit('setSettings', {
+        name: 'isFullResultBlock',
+        value: size
+      })
+      setTimeout(() => {
+        this.$refs.carousel.reload()
+      })
     }
   },
   beforeDestroy() {
     bus.$off('toMuseum')
+    this.$store.commit('setSettings', {
+      name: 'isFullResultBlock',
+      value: false
+    })
   }
 }
 </script>

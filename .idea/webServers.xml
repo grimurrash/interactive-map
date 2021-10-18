@@ -9,6 +9,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="f4284ed2-563e-40d0-8ca5-dc5b4c616346" name="tempserver" url="http://ruvip51.hostiman.ru">
+        <fileTransfer rootFolder="/www/museum.grimur-rash.ru" host="ruvip51.hostiman.ru" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

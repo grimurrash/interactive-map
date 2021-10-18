@@ -7,7 +7,13 @@ use App\Http\Resources\AdminMuseumsResource;
 use App\Models\District;
 use App\Models\Museum;
 use App\Models\MuseumType;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use MoveMoveIo\DaData\Enums\Language;
+use MoveMoveIo\DaData\Facades\DaDataAddress;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use yajra\Datatables\DataTables;
 
 class MuseumController extends Controller
@@ -27,6 +33,7 @@ class MuseumController extends Controller
             ->addColumn('action', function () {
                 return '
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 align-middle"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 delete align-middle mt-3"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>                
                 ';
             })
             ->make(true);
@@ -39,7 +46,7 @@ class MuseumController extends Controller
         return view('admin.museums.create', compact('districts', 'museumTypes'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'max:255'],
@@ -94,7 +101,7 @@ class MuseumController extends Controller
             'website' => $form['website'] ?? "",
             'phone' => $form['phone'] ?? "",
             'email' => $form['email'] ?? "",
-            'imagesUrlStr'=> $form['imagesUrlStr'],
+            'imagesUrlStr' => $form['imagesUrlStr'] ?? '',
             'founderFIO' => $form['founderFIO'] ?? "",
             'createDate' => $form['createDate'] ?? "",
             'directorFio' => $form['directorFio'] ?? "",
@@ -104,14 +111,14 @@ class MuseumController extends Controller
         return redirect()->route('admin.museums.index');
     }
 
-    public function edit(Museum $museum)
+    public function edit(Museum $museum): JsonResponse
     {
         return response()->json([
             'museum' => $museum
-        ])->setStatusCode(200);
+        ]);
     }
 
-    public function update(Request $request, Museum $museum)
+    public function update(Request $request, Museum $museum): JsonResponse
     {
         $form = $request->all();
         $updateMuseum = [
@@ -124,7 +131,7 @@ class MuseumController extends Controller
             'website' => $form['website'] ?? "",
             'phone' => $form['phone'] ?? "",
             'email' => $form['email'] ?? "",
-            'imagesUrlStr'=> $form['imagesUrlStr'],
+            'imagesUrlStr' => $form['imagesUrlStr'] ?? '',
             'founderFIO' => $form['founderFIO'] ?? "",
             'createDate' => $form['createDate'] ?? "",
             'directorFio' => $form['directorFio'] ?? "",
@@ -132,6 +139,81 @@ class MuseumController extends Controller
             'directorEmail' => $form['directorEmail'] ?? "",
         ];
         $museum->update($updateMuseum);
-        return response()->json(['status' => true])->setStatusCode(200);
+        return response()->json(['status' => true]);
+    }
+
+    public function destroy(Museum $museum): JsonResponse
+    {
+        $museum->delete();
+        return response()->json(['status' => true]);
+    }
+
+    public function importFromExcel(Request $request)
+    {
+        $storageDir = storage_path('app');
+
+        $loadFile = $request->file('file');
+        $loadFileName = 'loadDataFile.' . $loadFile->getClientOriginalExtension();
+        Storage::put($loadFileName, file_get_contents($loadFile->getRealPath()));
+        $loadFilePath = $storageDir . '/' . $loadFileName;
+
+        $excel = IOFactory::load($loadFilePath);
+        $worksheet = $excel->getActiveSheet();
+        $loadDataList = $worksheet->toArray();
+        unset($excel);
+        unlink($loadFilePath);
+
+        $districts = District::all();
+        $types = MuseumType::all();
+
+        $insertData = [];
+        foreach ($loadDataList as $index => $row) {
+            if ($index < 3) continue;
+
+            try {
+                $coordination = explode(',', $row[15]);
+                $lat = trim($coordination[0]);
+                $lon = trim($coordination[1]);
+
+//                $imageUrlStr = "";
+//                if (isset($row[23]))
+//                    $imageUrlStr .= trim($row[23]) . "\r\n";
+//                if (isset($row[24]))
+//                    $imageUrlStr .= trim($row[23]) . "\r\n";
+//                if (isset($row[25]))
+//                    $imageUrlStr .= trim($row[25]);
+
+                $address = $row[14];
+                $geoData = DaDataAddress::geolocate($lat, $lon, 1, 50, Language::RU);
+                if (isset($geoData['suggestions'][0]))
+                    $address = $geoData['suggestions'][0]['unrestricted_value'];
+                $insertData[] = [
+                    'name' => trim($row[13]),
+                    'description' => trim($row[18] ?? ""),
+                    'typeId' => $types->where('name', '=', $row[17])->first()->id,
+                    'districtId' => $districts->where('shortName', '=', $row[16])->first()->id,
+                    'code' => trim($row[1]),
+                    'Latitude' => $lat,
+                    'Longitude' => $lon,
+                    'address' => $address ?? "",
+                    'location' => trim($row[3] ?? ""),
+                    'website' => $row[19] ?? "",
+                    'imagesUrlStr' => '',
+                    'phone' => "",
+                    'email' => "",
+                    'founderFIO' => "",
+                    'createDate' => "",
+                    'directorFio' => trim($row[20] ?? ""),
+                    'directorPhone' => trim($row[22] ?? ""),
+                    'directorEmail' => trim($row[21] ?? ""),
+                ];
+            } catch (\Exception $e) {
+                dd($row, $e);
+            }
+
+        }
+//        dd($insertData);
+        Museum::query()->insert($insertData);
+        return response()->json(['status' => true]);
     }
 }
