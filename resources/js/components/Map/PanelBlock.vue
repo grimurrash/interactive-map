@@ -1,8 +1,8 @@
 <template>
-  <div class="panel">
+  <div class="panel" :class="{'is-full-panel': settings.isFullResultBlock}">
     <action-panel/>
     <template v-if="settings.showFilters">
-        <filter-panel/>
+      <filter-panel/>
     </template>
     <template v-else>
       <transition name="slide-fade">

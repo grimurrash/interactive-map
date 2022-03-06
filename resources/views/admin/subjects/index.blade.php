@@ -96,6 +96,14 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label for="imagesUrlStr" class="col-sm-3 col-form-label text-sm-end">Ссылки на фото</label>
+                    <div class="col-sm-8">
+                            <textarea placeholder="Ссылки на фото (Каждая фотография новая строка)" class="form-control" rows="3"
+                                      name="imagesUrlStr"
+                                      id="imagesUrlStr">${d.imagesUrlStr}</textarea>
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label for="Latitude" class="col-sm-3 col-form-label text-sm-end">GPS координаты</label>
                     <div class="col-sm-8">
                         <div class="input-group">

@@ -75,6 +75,7 @@ class SubjectController extends Controller
             'typeId' => 1,
             'districtId' => $form['districtId'],
             'Latitude' => $form['Latitude'],
+            'imagesUrlStr' => $form['imagesUrlStr'] ?? '',
             'Longitude' => $form['Longitude'],
             'address' => $form['address'] ?? "",
         ]);
@@ -95,6 +96,7 @@ class SubjectController extends Controller
             'name' => $form['name'],
             'description' => $form['description'] ?? "",
             'typeId' => $form['typeId'],
+            'imagesUrlStr' => $form['imagesUrlStr'] ?? '',
             'districtId' => $form['districtId'],
             'address' => $form['address'] ?? "",
         ];
@@ -102,11 +104,11 @@ class SubjectController extends Controller
         return response()->json(['status' => true]);
     }
 
-    public function destroy(Subject  $subject)
+    public function destroy(Subject $subject)
     {
         $subject->delete();
 
-        return response()->json(['status'=> true]);
+        return response()->json(['status' => true]);
     }
 
     public function importFromExcel(Request $request)
@@ -125,31 +127,41 @@ class SubjectController extends Controller
         unlink($loadFilePath);
 
         $districts = District::all();
-        $types = SubjectType::all();
 
         $insertData = [];
         foreach ($loadDataList as $index => $row) {
-            if ($index < 3) continue;
+            if ($index < 2) continue;
 
+            if ($row[2] == null || $row[2] == '' || $row[6] == null || $row[6] == '') continue;
             try {
-                $coordination = explode(',', $row[5]);
+                $coordination = explode(',', str_replace("\n", '', $row[5]));
                 $lat = trim($coordination[0]);
                 $lon = trim($coordination[1]);
+
+                $type = SubjectType::where('name', '=', trim($row[2]))->first();
+                if ($type == null) {
+                    $type = SubjectType::query()->create([
+                        'name' => trim($row[2]),
+                        'color' => ''
+                    ]);
+                }
 
                 $address = $row[4];
                 $geoData = DaDataAddress::geolocate($lat, $lon, 1, 50, Language::RU);
                 if (isset($geoData['suggestions'][0]))
                     $address = $geoData['suggestions'][0]['unrestricted_value'];
+
                 $insertData[] = [
                     'name' => trim($row[3]),
                     'description' => trim($row[7] ?? ""),
-                    'typeId' => $types->where('name', '=', trim($row[2]))->first()->id,
+                    'typeId' => $type->id,
                     'districtId' => $districts->where('shortName', '=', $row[6])->first()->id,
                     'Latitude' => $lat,
                     'Longitude' => $lon,
                     'address' => $address ?? "",
+                    'imagesUrlStr' => $row[8] ?? ''
                 ];
-            } catch (\Exception $e) {
+            } catch (\TypeError | \Exception $e) {
                 dd($row, $e);
             }
 

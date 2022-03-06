@@ -205,16 +205,23 @@ export default {
                 title: p.name
             }
 
+            let options = {
+                hideIconOnBalloonOpen: false,
+                hasBalloon: false
+            }
+
             if (main) {
                 properties.iconContent = p.subjectsCount
                 properties.balloonContentHeader = `${p.shortName}<br/>`
                 properties.balloonContentBody = `Объектов в ${p.shortName}: ${p.subjectsCount}`
+                options.preset = 'islands#blueStretchyIcon'
+
             } else {
                 properties.hintContent = p.name || p.title
                 properties.balloonContentHeader = `${p.name || p.title}<br/>`
+                options.preset = 'islands#circleDotIcon'
+                options.iconColor = p.typeColor ? p.typeColor : p.type.color
             }
-            let color = p.typeColor ? p.typeColor : p.type.color
-            console.log(color)
             obj.features.push({
                 type: 'Feature',
                 id: p.id,
@@ -225,12 +232,7 @@ export default {
                     coordinates: [parseFloat(p.Latitude), parseFloat(p.Longitude)],
                 },
                 properties,
-                options: {
-                    preset: main ? 'islands#blueStretchyIcon' : 'islands#circleIcon',
-                    hideIconOnBalloonOpen: false,
-                    iconColor: color,
-                    hasBalloon: false
-                }
+                options: options
             })
         })
 

@@ -24,6 +24,7 @@ class CreateSubjectsTable extends Migration
             $table->double('Latitude');
             $table->double('Longitude');
             $table->string('address');
+            $table->text('imagesUrlStr');
 
             $table->foreign('typeId')->references('id')->on('subject_types')->onDelete('cascade');
             $table->foreign('districtId')->references('id')->on('districts')->onDelete('cascade');

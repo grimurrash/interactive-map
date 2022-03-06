@@ -39,6 +39,8 @@
     box-shadow: 5px 5px 30px rgba(218,220,232,.4);
     min-height: 20px;
     padding: .61805em;
+    overflow-y: auto;
+    max-height: calc(100vh - 14em);
 }
 
 @mixin left-panel-active {

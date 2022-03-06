@@ -72,7 +72,7 @@ class SubjectController extends Controller
         }
 
         return response()->json([
-            'search' => $subjects,
+            'search' => SubjectsResource::collection($subjects),
         ])->setStatusCode(200);
     }
 }

@@ -22,6 +22,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string website
  * @property string video
  * @method videoUrl()
+ * @method imagesUrls()
  */
 class SubjectResource extends JsonResource
 {
@@ -44,6 +45,7 @@ class SubjectResource extends JsonResource
             'founderFIO' => $this->founderFIO,
             'districtId' => $this->districtId,
             'districtName' => $this->district->name,
+            'imagesUrl' => $this->imagesUrls(),
             'type' => [
                 'id' => $this->typeId,
                 'name' => $this->type->name,

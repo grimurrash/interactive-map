@@ -25,4 +25,10 @@ class Subject extends Model
     {
         return $this->belongsTo(District::class, 'districtId', 'id');
     }
+
+    public function imagesUrls() {
+        return array_filter(explode("\r\n", $this->imagesUrlStr), function ($image) {
+            return $image !== '';
+        });
+    }
 }

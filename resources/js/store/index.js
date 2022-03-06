@@ -21,6 +21,7 @@ const state = {
         search: '',
         showFilters: false,
         showPanel: false,
+        isFullResultBlock: false,
         stage: 0
     }
 }
